@@ -14,6 +14,7 @@ namespace DynamicDataAtomicity.Tests
             var updates = new List<TestStateAtomicStream>();
             var testState = new TestState();
             var testSubscription = testState.AtomicStream.Subscribe(updates.Add);
+            var atomicStreamSubscription = testState.AtomicStream.Connect();
 
             testState.UpdateCacheProperty(x => x.Data1Cache, u =>
             {
@@ -47,6 +48,7 @@ namespace DynamicDataAtomicity.Tests
 
             testState.CompleteUpdateOperation();
 
+            atomicStreamSubscription.Dispose();
             testSubscription.Dispose();
 
             Assert.Equal(1, updates.Count);
@@ -61,6 +63,7 @@ namespace DynamicDataAtomicity.Tests
             var updates = new List<TestStateAtomicStream>();
             var testState = new TestState();
             var testSubscription = testState.AtomicStream.Subscribe(updates.Add);
+            var atomicStreamSubscription = testState.AtomicStream.Connect();
 
             testState.UpdateCacheProperty(x => x.Data1Cache, u =>
             {
@@ -94,6 +97,7 @@ namespace DynamicDataAtomicity.Tests
 
             testState.CompleteUpdateOperation();
 
+            atomicStreamSubscription.Dispose();
             testSubscription.Dispose();
 
             Assert.Equal(1, updates.Count);
@@ -108,6 +112,7 @@ namespace DynamicDataAtomicity.Tests
             var updates = new List<TestStateAtomicStream>();
             var testState = new TestState();
             var testSubscription = testState.AtomicStream.Subscribe(updates.Add);
+            var atomicStreamSubscription = testState.AtomicStream.Connect();
 
             testState.UpdateCacheProperty(x => x.Data1Cache, u =>
             {
@@ -171,6 +176,7 @@ namespace DynamicDataAtomicity.Tests
 
             testState.CompleteUpdateOperation();
 
+            atomicStreamSubscription.Dispose();
             testSubscription.Dispose();
 
             Assert.Equal(1, updates.Count);
@@ -185,9 +191,11 @@ namespace DynamicDataAtomicity.Tests
             var updates = new List<TestStateAtomicStream>();
             var testState = new TestState();
             var testSubscription = testState.AtomicStream.Subscribe(updates.Add);
+            var atomicStreamSubscription = testState.AtomicStream.Connect();
 
             testState.CompleteUpdateOperation();
 
+            atomicStreamSubscription.Dispose();
             testSubscription.Dispose();
 
             Assert.Equal(1, updates.Count);
@@ -202,6 +210,7 @@ namespace DynamicDataAtomicity.Tests
             var updates = new List<TestStateAtomicStream>();
             var testState = new TestState();
             var testSubscription = testState.AtomicStream.Subscribe(updates.Add);
+            var atomicStreamSubscription = testState.AtomicStream.Connect();
 
             testState.CompleteUpdateOperation();
 
@@ -220,6 +229,7 @@ namespace DynamicDataAtomicity.Tests
                 });
             });
 
+            atomicStreamSubscription.Dispose();
             testSubscription.Dispose();
 
             Assert.Equal(1, updates.Count);
@@ -234,6 +244,7 @@ namespace DynamicDataAtomicity.Tests
             var updates = new List<TestStateAtomicStream>();
             var testState = new TestState();
             var testSubscription = testState.AtomicStream.Subscribe(updates.Add);
+            var atomicStreamSubscription = testState.AtomicStream.Connect();
 
             testState.CompleteUpdateOperation();
 
@@ -306,6 +317,7 @@ namespace DynamicDataAtomicity.Tests
 
             testState.CompleteUpdateOperation();
 
+            atomicStreamSubscription.Dispose();
             testSubscription.Dispose();
 
             Assert.Equal(5, updates.Count);
@@ -336,6 +348,7 @@ namespace DynamicDataAtomicity.Tests
             var updates = new List<TestStateAtomicStream>();
             var testState = new TestState();
             var testSubscription = testState.AtomicStream.Subscribe(updates.Add);
+            var atomicStreamSubscription = testState.AtomicStream.Connect();
 
             testState.UpdateScalarProperty(x => x.Data3Scalar, new TestStateType1
                 {
@@ -345,6 +358,7 @@ namespace DynamicDataAtomicity.Tests
 
             testState.CompleteUpdateOperation();
 
+            atomicStreamSubscription.Dispose();
             testSubscription.Dispose();
 
             Assert.Equal(1, updates.Count);
@@ -359,6 +373,7 @@ namespace DynamicDataAtomicity.Tests
             var updates = new List<TestStateAtomicStream>();
             var testState = new TestState();
             var testSubscription = testState.AtomicStream.Subscribe(updates.Add);
+            var atomicStreamSubscription = testState.AtomicStream.Connect();
 
             testState.UpdateScalarProperty(x => x.Data3Scalar, new TestStateType1
             {
@@ -380,6 +395,7 @@ namespace DynamicDataAtomicity.Tests
 
             testState.CompleteUpdateOperation();
 
+            atomicStreamSubscription.Dispose();
             testSubscription.Dispose();
 
             Assert.Equal(1, updates.Count);

@@ -16,6 +16,7 @@ namespace DynamicDataAtomicity.Tests
             var testSubscription = testState.AtomicStream.WhenAnyCountable(x => x.Data1).Subscribe(update => {
                 updates.Add(update);
             });
+            var atomicStreamSubscription = testState.AtomicStream.Connect();
 
             testState.UpdateCacheProperty(x => x.Data1Cache, u =>
             {
@@ -68,6 +69,7 @@ namespace DynamicDataAtomicity.Tests
 
             testState.CompleteUpdateOperation();
 
+            atomicStreamSubscription.Dispose();
             testSubscription.Dispose();
 
             Assert.Equal(1, updates.Count);
@@ -82,6 +84,7 @@ namespace DynamicDataAtomicity.Tests
             var updates = new List<TestStateAtomicStream>();
             var testState = new TestState();
             var testSubscription = testState.AtomicStream.WhenAnyCountable(x => x.Data1, x => x.Data2, x => x.Data3).Subscribe(updates.Add);
+            var atomicStreamSubscription = testState.AtomicStream.Connect();
 
             testState.UpdateCacheProperty(x => x.Data1Cache, u =>
             {
@@ -136,6 +139,7 @@ namespace DynamicDataAtomicity.Tests
 
             testState.CompleteUpdateOperation();
 
+            atomicStreamSubscription.Dispose();
             testSubscription.Dispose();
 
             Assert.Equal(3, updates.Count);

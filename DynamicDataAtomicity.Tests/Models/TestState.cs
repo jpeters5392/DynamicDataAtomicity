@@ -39,7 +39,7 @@ namespace DynamicDataAtomicity.Tests.Models
                                  .DistinctUntilChanged(x => x.LastOperation)
                                  .Select(CreateStateUpdates)
                                  .Subscribe(observer.OnNext, observer.OnError, observer.OnCompleted);
-            });
+            }).Publish();
         }
 
         private TestStateAtomicStream CreateStateUpdates((IList<IChangeSet<TestStateType1, Guid>> Data1Changes, IList<IChangeSet<TestStateType2, Guid>> Data2Changes, IList<TestStateType1> Data3Changes, long LastOperation) args) => 

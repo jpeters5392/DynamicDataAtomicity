@@ -9,7 +9,7 @@ namespace DynamicDataAtomicity
         private Subject<long> _lastAtomicOperationCompleted = new Subject<long>();
         public IObservable<long> LastAtomicOperationCompleted => _lastAtomicOperationCompleted.AsObservable();
 
-        public IObservable<TState> AtomicStream { get; protected set; }
+        public IConnectableObservable<TState> AtomicStream { get; protected set; }
 
         protected CompositeAtomic()
         {
