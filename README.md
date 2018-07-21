@@ -77,7 +77,7 @@ private TestStateAtomicStream CreateStateUpdates((IList<IChangeSet<TestStateType
 ```
 
 ## Responding to state updates
-There is a new WhenAny variant that allows you to subscribe to state changes, but only when there were changes to one or more properties that you care about.
+There is a new WhenAny variant, `WhenAnyCountable`, that allows you to subscribe to state changes and filter down to only when there were changes to the one or more properties that you care about.  If you decide not to use `WhenAnyCountable` then you do not need to use the `ICountableChangeSet` or `ICountableList` interfaces in your state update model.  Those are only needed to allow this extension method to determine the update count across several different data types.
 
 ```
 var testState = new TestState();
