@@ -11,10 +11,6 @@ namespace DynamicDataAtomicity
 
         public IConnectableObservable<TState> AtomicStream { get; protected set; }
 
-        protected CompositeAtomic()
-        {
-        }
-
         public void CompleteUpdateOperation()
         {
             _lastAtomicOperationCompleted.OnNext(DateTimeOffset.UtcNow.Ticks);

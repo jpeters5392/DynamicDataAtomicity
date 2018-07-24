@@ -10,4 +10,10 @@
   <ItemGroup>
     <Folder Include="ObservableExtensions\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="ObservableExtensions\Observables.cs" />
+    <Compile Remove="ObservableExtensions\Enumerables.cs" />
+    <Compile Remove="ChangeSubject.cs" />
+    <Compile Remove="IChangeSubject.cs" />
+  </ItemGroup>
 </Project>

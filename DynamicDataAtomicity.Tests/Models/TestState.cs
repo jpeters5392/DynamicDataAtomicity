@@ -6,7 +6,6 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reflection;
 using DynamicData;
-using DynamicDataAtomicity;
 using DynamicDataAtomicity.ObservableExtensions;
 
 namespace DynamicDataAtomicity.Tests.Models
@@ -22,7 +21,7 @@ namespace DynamicDataAtomicity.Tests.Models
         internal ISubject<TestStateType1> Data3Scalar { get; }
         public IObservable<TestStateType1> Data3 => Data3Scalar.AsObservable();
 
-        public TestState() : base()
+        public TestState()
         {
             Data2Cache = new SourceCache<TestStateType2, Guid>(i => i.Id);
             Data1Cache = new SourceCache<TestStateType1, Guid>(i => i.Id);
@@ -30,20 +29,22 @@ namespace DynamicDataAtomicity.Tests.Models
 
             AtomicStream = Observable.Create<TestStateAtomicStream>(observer =>
             {
-                var data1Updates = this.Data1.AtomicBuffer(LastAtomicOperationCompleted);
-                var data2Updates = this.Data2.AtomicBuffer(LastAtomicOperationCompleted);
-                var data3Updates = this.Data3.AtomicBuffer(LastAtomicOperationCompleted);
+                var data1Updates = Observable.Buffer(this.Data1.Connect(), LastAtomicOperationCompleted);
+                var data2Updates = Observable.Buffer(this.Data2.Connect(), LastAtomicOperationCompleted);
+                var data3Updates = Observable.Buffer(this.Data3.AsChangeSet(), LastAtomicOperationCompleted);
 
                 return Observable.Zip(LastAtomicOperationCompleted, data1Updates, data2Updates, data3Updates,
                                       (lastOperation, data1, data2, data3) => (Data1Changes: data1, Data2Changes: data2, Data3Changes: data3, LastOperation: lastOperation))
                                  .DistinctUntilChanged(x => x.LastOperation)
-                                 .Select(CreateStateUpdates)
+                                 .Select(CreateState)
                                  .Subscribe(observer.OnNext, observer.OnError, observer.OnCompleted);
             }).Publish();
         }
 
-        private TestStateAtomicStream CreateStateUpdates((IList<IChangeSet<TestStateType1, Guid>> Data1Changes, IList<IChangeSet<TestStateType2, Guid>> Data2Changes, IList<TestStateType1> Data3Changes, long LastOperation) args) => 
-            new TestStateAtomicStream { Data1 = args.Data1Changes.CombineChangeSets(), Data2 = args.Data2Changes.CombineChangeSets(), Data3 = args.Data3Changes.ToCountableList() };
+        protected TestStateAtomicStream CreateState((IList<IChangeSet<TestStateType1, Guid>> Data1Changes, IList<IChangeSet<TestStateType2, Guid>> Data2Changes, IList<IChangeSet<TestStateType1>> Data3Changes, long LastOperation) args)
+        {
+            return new TestStateAtomicStream { Data1 = args.Data1Changes.CombineChangeSets(), Data2 = args.Data2Changes.CombineChangeSets(), Data3 = args.Data3Changes.CombineChangeSets() };
+        }
 
         public void UpdateCacheProperty<TDataType, TKeyType>(Expression<Func<TestState, ISourceCache<TDataType, TKeyType>>> selector, Action<ISourceUpdater<TDataType, TKeyType>> updater)
         {
