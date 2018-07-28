@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DynamicData.Atomicity</id>
+    <version>$version$</version>
+    <title>DynamicData.Atomicity</title>
+    <authors>Joel Peterson</authors>
+    <owners>jpeters5392</owners>
+    <licenseUrl>https://raw.githubusercontent.com/jpeters5392/DynamicDataAtomicity/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/jpeters5392/DynamicDataAtomicity</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A set of helper methods to allow atomic updates across multiple reactive properties</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>RX.NET DynamicData</tags>
+  </metadata>
+  <files>
+    <file src="bin/Release/netstandard2.0/*.*" target="lib/netstandard2.0" />
+  </files>
+</package>
