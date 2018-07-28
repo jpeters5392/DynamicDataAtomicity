@@ -5,7 +5,7 @@
     <version>$version$</version>
     <title>DynamicData.Atomicity</title>
     <authors>Joel Peterson</authors>
-    <owners>jpeters5392</owners>
+    <owners>jpeters5392, ryanwersal</owners>
     <licenseUrl>https://raw.githubusercontent.com/jpeters5392/DynamicDataAtomicity/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/jpeters5392/DynamicDataAtomicity</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
