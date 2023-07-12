@@ -1,5 +1,5 @@
 # DynamicDataAtomicity
-This project allows you to leverage DynamicData's `IObservableCache<T, K>` as well as standard `IObservable<T>` for multiple properties on your application state object, yet allow for atomic updates to some or all of those properties.
+This project allows you to leverage DynamicData's `IObservableCache<T, K>` as well as standard `IObservable<T>` for multiple properties on your application state object, yet allow for atomic updates to some or all of those properties.test
 
 ## Example
 Consider the following example with the given application state object.
